@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <!-- My CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <title>Contact zdnpl</title>
+  </head>
+  <body id="home">
+    <!-- Contact -->
+    <section id="contact" style="margin-top: 150px">
+      <div class="container">
+        <div class="row text-center mb-3">
+          <div class="col">
+            <h2>Contact zdnpl</h2>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div class="alert alert-success alert-dismissible fade show d-none" role="alert">
+              Thank you! Your message has been sent.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <form name="zdnpl-contact-form">
+              <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" aria-describedby="name" name="name" required />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" aria-describedby="email" name="email" required />
+              </div>
+              <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" rows="3" name="message" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-dark btn-send">Send</button>
+
+              <button class="btn btn-dark btn-loading d-none" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Sending...
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path
+          fill="#212529"
+          fill-opacity="1"
+          d="M0,64L40,101.3C80,139,160,213,240,229.3C320,245,400,203,480,208C560,213,640,267,720,256C800,245,880,171,960,165.3C1040,160,1120,224,1200,234.7C1280,245,1360,203,1400,181.3L1440,160L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"
+        ></path>
+      </svg>
+    </section>
+    <!-- Akhir Contact -->
+
+    <script>
+      const scriptURL = "https://script.google.com/macros/s/AKfycbzzZak2bRpT53Am3Y3TBknx55nk3lMc8xGgw51vCS_agQNdrzJDZy8Uod4Dwdcnj_pk/exec";
+      const form = document.forms["zdnpl-contact-form"];
+
+      const btnSend = document.querySelector(".btn-send");
+      const btnLoading = document.querySelector(".btn-loading");
+      const alertSuccess = document.querySelector(".alert-success");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        //if submit button got clicked
+        //show loading button, hide send button
+        btnLoading.classList.toggle("d-none");
+        btnSend.classList.toggle("d-none");
+
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => {
+            console.log("Success!", response);
+            //show send button, hide loading button
+            btnLoading.classList.toggle("d-none");
+            btnSend.classList.toggle("d-none");
+            //show alert
+            alertSuccess.classList.toggle("d-none");
+            //reset form
+            form.reset();
+          })
+          .catch((error) => console.error("Error!", error.message));
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+  </body>
+</html>
